@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : md4c
 Version  : 0.4.4
-Release  : 2
+Release  : 3
 URL      : file:///insilications/build/clearlinux/packages/md4c/md4c-release-0.4.4.zip
 Source0  : file:///insilications/build/clearlinux/packages/md4c/md4c-release-0.4.4.zip
 Summary  : Markdown parser library with a SAX-like callback-based interface.
@@ -71,7 +71,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597232609
+export SOURCE_DATE_EPOCH=1597232703
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -97,7 +97,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags_pgo end
-%cmake ..
+%cmake .. -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=ON -DENABLE_TESTS=1
 export CFLAGS="${CFLAGS_GENERATE}"
 export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
@@ -116,7 +116,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1597232609
+export SOURCE_DATE_EPOCH=1597232703
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -133,9 +133,9 @@ popd
 %defattr(-,root,root,-)
 /usr/include/md4c-html.h
 /usr/include/md4c.h
-/usr/lib64/cmake/md4c-html/md4cHtmlConfig-relwithdebinfo.cmake
+/usr/lib64/cmake/md4c-html/md4cHtmlConfig-release.cmake
 /usr/lib64/cmake/md4c-html/md4cHtmlConfig.cmake
-/usr/lib64/cmake/md4c/md4cConfig-relwithdebinfo.cmake
+/usr/lib64/cmake/md4c/md4cConfig-release.cmake
 /usr/lib64/cmake/md4c/md4cConfig.cmake
 /usr/lib64/libmd4c-html.so
 /usr/lib64/libmd4c.so
