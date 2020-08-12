@@ -5,14 +5,13 @@
 %define keepstatic 1
 Name     : md4c
 Version  : 0.4.4
-Release  : 3
+Release  : 4
 URL      : file:///insilications/build/clearlinux/packages/md4c/md4c-release-0.4.4.zip
 Source0  : file:///insilications/build/clearlinux/packages/md4c/md4c-release-0.4.4.zip
 Summary  : Markdown parser library with a SAX-like callback-based interface.
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1 MPL-1.1
 Requires: md4c-bin = %{version}-%{release}
-Requires: md4c-lib = %{version}-%{release}
 Requires: md4c-man = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : findutils
@@ -37,7 +36,6 @@ bin components for the md4c package.
 %package dev
 Summary: dev components for the md4c package.
 Group: Development
-Requires: md4c-lib = %{version}-%{release}
 Requires: md4c-bin = %{version}-%{release}
 Provides: md4c-devel = %{version}-%{release}
 Requires: md4c = %{version}-%{release}
@@ -46,20 +44,21 @@ Requires: md4c = %{version}-%{release}
 dev components for the md4c package.
 
 
-%package lib
-Summary: lib components for the md4c package.
-Group: Libraries
-
-%description lib
-lib components for the md4c package.
-
-
 %package man
 Summary: man components for the md4c package.
 Group: Default
 
 %description man
 man components for the md4c package.
+
+
+%package staticdev
+Summary: staticdev components for the md4c package.
+Group: Default
+Requires: md4c-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the md4c package.
 
 
 %prep
@@ -71,7 +70,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597232703
+export SOURCE_DATE_EPOCH=1597232751
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -97,7 +96,7 @@ export RANLIB=gcc-ranlib
 export NM=gcc-nm
 #export CCACHE_DISABLE=1
 ## altflags_pgo end
-%cmake .. -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=ON -DENABLE_TESTS=1
+%cmake .. -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=OFF -DENABLE_TESTS=1
 export CFLAGS="${CFLAGS_GENERATE}"
 export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
@@ -116,7 +115,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1597232703
+export SOURCE_DATE_EPOCH=1597232751
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -137,18 +136,14 @@ popd
 /usr/lib64/cmake/md4c-html/md4cHtmlConfig.cmake
 /usr/lib64/cmake/md4c/md4cConfig-release.cmake
 /usr/lib64/cmake/md4c/md4cConfig.cmake
-/usr/lib64/libmd4c-html.so
-/usr/lib64/libmd4c.so
 /usr/lib64/pkgconfig/md4c-html.pc
 /usr/lib64/pkgconfig/md4c.pc
-
-%files lib
-%defattr(-,root,root,-)
-/usr/lib64/libmd4c-html.so.0
-/usr/lib64/libmd4c-html.so.0.4.4
-/usr/lib64/libmd4c.so.0
-/usr/lib64/libmd4c.so.0.4.4
 
 %files man
 %defattr(0644,root,root,0755)
 /usr/share/man/man1/md2html.1
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libmd4c-html.a
+/usr/lib64/libmd4c.a
