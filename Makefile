@@ -1,5 +1,5 @@
 PKG_NAME := md4c
-URL = https://github.com/mity/md4c/archive/release-0.4.3.tar.gz
+URL = https://github.com/mity/md4c.git
 ARCHIVES = 
 
 include ../common/Makefile.common
