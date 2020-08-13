@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : md4c
 Version  : 0.4.4
-Release  : 6
+Release  : 7
 URL      : file:///insilications/build/clearlinux/packages/md4c/md4c-release-0.4.4.zip
 Source0  : file:///insilications/build/clearlinux/packages/md4c/md4c-release-0.4.4.zip
 Summary  : Markdown parser library with a SAX-like callback-based interface.
@@ -80,7 +80,7 @@ unset http_proxy
 unset https_proxy
 unset no_proxy
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1597325131
+export SOURCE_DATE_EPOCH=1597325591
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -111,7 +111,7 @@ export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
-%cmake .. -DLIB_INSTALL_DIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=OFF -DENABLE_TESTS=1
+%cmake .. -DLIB_INSTALL_DIR=lib64 -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=OFF -DENABLE_TESTS=1
 make  %{?_smp_mflags}
 
 make VERBOSE=1 V=1 %{?_smp_mflags} test || :
@@ -121,7 +121,7 @@ export CXXFLAGS="${CXXFLAGS_USE}"
 export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
-%cmake .. -DLIB_INSTALL_DIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=OFF -DENABLE_TESTS=1
+%cmake .. -DLIB_INSTALL_DIR=lib64 -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=OFF -DENABLE_TESTS=1
 make  %{?_smp_mflags}
 popd
 mkdir -p clr-build-special
@@ -154,7 +154,7 @@ export CXXFLAGS="${CXXFLAGS_GENERATE}"
 export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
-%cmake .. -DLIB_INSTALL_DIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=ON -DENABLE_TESTS=1
+%cmake .. -DLIB_INSTALL_DIR=lib64 -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=ON -DENABLE_TESTS=1
 make  %{?_smp_mflags}
 
 make VERBOSE=1 V=1 %{?_smp_mflags} test || :
@@ -164,12 +164,12 @@ export CXXFLAGS="${CXXFLAGS_USE}"
 export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
-%cmake .. -DLIB_INSTALL_DIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=ON -DENABLE_TESTS=1
+%cmake .. -DLIB_INSTALL_DIR=lib64 -DCMAKE_INSTALL_LIBDIR=lib64 -DBUILD_STATIC_LIBS:BOOL=ON -DBUILD_STATIC_LIBS=1 -DENABLE_SHARED:bool=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:bool=ON -DENABLE_TESTS=1
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1597325131
+export SOURCE_DATE_EPOCH=1597325591
 rm -rf %{buildroot}
 pushd clr-build-special
 %make_install_special  || :
